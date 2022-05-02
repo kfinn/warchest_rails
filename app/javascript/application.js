@@ -1,3 +1,9 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails"
-import "controllers"
+import "@hotwired/turbo-rails";
+import ReactDom from "react-dom";
+import HelloWorld from "components/hello_world";
+import h from "h";
+
+document.addEventListener('readystatechange', () => {
+  const root = ReactDom.createRoot(document.getElementById('root'));
+  root.render(h`<${HelloWorld} />`);
+})
