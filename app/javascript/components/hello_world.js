@@ -1,5 +1,5 @@
 import h from "h";
 
-export default function HelloWorld() {
-  return h`<div>Hi!</div>`;
+export default function HelloWorld({ name }) {
+  return h`<div>Hi, ${name}!</div>`;
 }
