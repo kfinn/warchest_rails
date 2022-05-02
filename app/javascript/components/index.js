@@ -1,5 +1,5 @@
-import HelloWorld from './hello_world';
+import Warchest from './warchest';
 
 export {
-  HelloWorld
+  Warchest
 };

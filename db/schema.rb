@@ -10,8 +10,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 0) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_02_214803) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "budgets", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.bigint "campaign_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_budgets_on_campaign_id"
+  end
+
+  create_table "campaigns", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.bigint "created_by_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_by_id"], name: "index_campaigns_on_created_by_id"
+  end
+
+  create_table "contributions", force: :cascade do |t|
+    t.bigint "transaction_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["transaction_id"], name: "index_contributions_on_transaction_id"
+  end
+
+  create_table "disbursements", force: :cascade do |t|
+    t.bigint "transaction_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["transaction_id"], name: "index_disbursements_on_transaction_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.date "date", null: false
+    t.integer "amount_cents", default: 0, null: false
+    t.string "amount_currency", default: "USD", null: false
+    t.bigint "budget_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["budget_id"], name: "index_transactions_on_budget_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "budgets", "campaigns"
+  add_foreign_key "campaigns", "users", column: "created_by_id"
+  add_foreign_key "contributions", "transactions"
+  add_foreign_key "disbursements", "transactions"
+  add_foreign_key "transactions", "budgets"
 end

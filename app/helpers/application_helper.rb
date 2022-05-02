@@ -4,7 +4,7 @@ module ApplicationHelper
       'div',
       {
         "data-react-component" => {
-          name: 'HelloWorld',
+          name: name,
           props: props.deep_transform_keys { |k| k.to_s.camelize(:lower) }
         }.to_json
       }
