@@ -1,7 +1,8 @@
+import useEvent from '@react-hook/event';
 import h from 'h';
-import { useState, useMemo } from "react";
-import RouterContext from "./router_context";
 import _ from 'lodash';
+import { useCallback, useMemo, useState } from "react";
+import RouterContext from "./router_context";
 
 function computeMatch(routes, location) {
   const locationSegments = _.compact(_.split(location.pathname, '/'));
@@ -15,7 +16,7 @@ function computeMatch(routes, location) {
     let matching = true;
     for (const [routeSegment, locationSegment] of segmentPairs) {
       if (_.startsWith(routeSegment, ':')) {
-        params[routeSegment.slice(1)] = locationSegment
+        params[routeSegment.slice(1)] = locationSegment‚
       } else if (routeSegment !== locationSegment) {
         matching = false;
         break;
@@ -28,12 +29,22 @@ function computeMatch(routes, location) {
 }
 
 export default function Router({ routes }) {
-  const [location, setLocation] = useState({ pathname: window.location.pathname });
-  
+  const [location, setLocation] = useState(_.pick(window.location, 'pathname'));
+
+  useEvent(window, 'popstate', (event) => {
+    console.log(event);
+    setLocation(_.pick(window.location, 'pathname'));
+  });
+
+  const pushState = useCallback(({ pathname }) => {
+    window.history.pushState(null, '', pathname);
+    setLocation({ pathname })
+  }, [setLocation]);
+
   const routerContext = useMemo(() => ({
     location,
-    pushState: setLocation
-  }), [location, setLocation]);
+    pushState,
+  }), [location, pushState]);
 
   const match = useMemo(() => computeMatch(routes, location), [routes, location])
 

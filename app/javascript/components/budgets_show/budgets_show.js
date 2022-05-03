@@ -1,6 +1,6 @@
-import { useQuery } from 'react-query';
 import api from 'api';
 import h from 'h';
+import { useQuery } from 'react-query';
 
 export default function BudgetsShow({ id }) {
   const { data: { data: budget } } = useQuery(

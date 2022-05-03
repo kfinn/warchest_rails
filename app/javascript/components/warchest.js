@@ -1,9 +1,9 @@
 import h from 'h';
+import { StrictMode, Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Suspense, StrictMode } from 'react';
+import BudgetsShow from './budgets_show/budgets_show';
 import CampaignsIndex from './campaigns_index/campaigns_index';
 import CampaignsShow from './campaigns_show/campaigns_show';
-import BudgetsShow from './budgets_show/budgets_show';
 import Router from './router/router';
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { suspense: true } } });
@@ -23,7 +23,7 @@ export default function Warchest() {
               to: CampaignsIndex
             },
             {
-              path: "campaigns/:id",
+              path: "campaigns/:id",‚
               to: CampaignsShow
             },
             {

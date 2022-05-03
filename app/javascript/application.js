@@ -1,8 +1,8 @@
 import "@hotwired/turbo-rails";
-import ReactDom from "react-dom";
+import * as components from 'components';
 import h from "h";
 import _ from 'lodash';
-import * as components from 'components';
+import ReactDom from "react-dom";
 
 document.addEventListener('readystatechange', (event) => {
   if (event.isTrusted && event.target.readyState === 'complete') {

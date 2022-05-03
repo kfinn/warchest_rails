@@ -1,9 +1,9 @@
-import { createContext, useContext } from 'react';
 import _ from 'lodash';
+import { createContext, useContext } from 'react';
 
 const RouterContext = createContext({
   location: _.pick(window.location, 'pathname'),
-  pushState: (newLocation) => {}
+  pushState: (_newLocation) => {},
 });
 export default RouterContext;
 

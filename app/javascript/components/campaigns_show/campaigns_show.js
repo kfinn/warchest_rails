@@ -1,8 +1,8 @@
-import h from "h";
 import api from 'api';
-import Link from '../router/link';
-import { useQuery } from 'react-query';
+import h from "h";
 import _ from 'lodash';
+import { useQuery } from 'react-query';
+import Link from '../router/link';
 
 export default function CampaignsShow({ id }) {
   const { data: { data: campaign } } = useQuery(
@@ -19,7 +19,7 @@ export default function CampaignsShow({ id }) {
           campaign.budgets,
           (budget) => h`
             <li key=${budget.id}>
-              <${Link} to=${`budgets/${budget.id}`}>${budget.name}<//>
+              <${Link} to=${`/budgets/${budget.id}`}>${budget.name}<//>
             </li>
           `
         )
