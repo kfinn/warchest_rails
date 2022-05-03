@@ -9,4 +9,6 @@ class Entry < ApplicationRecord
 
   scope :with_contributions, -> { where id: Contribution.select(:entry_id) }
   scope :with_disbursements, -> {where id: Disbursement.select(:entry_id) }
+
+  scope :on_or_before, ->(date) { where 'date <= ?', date }
 end

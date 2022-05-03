@@ -49,4 +49,23 @@ class Budget < ApplicationRecord
   def total_cash_on_hand
     @total_cash_on_hand ||= Money.new(total_cash_on_hand_cents)
   end
+
+  computed_attribute(
+    :current_cash_on_hand_cents,
+    Entry
+      .where('"entries"."budget_id" = "budgets"."id"')
+      .on_or_before(Date.current)
+      .select('SUM("entries"."amount_cents")'),
+    proc do
+      entries
+        .select { |entry| entry.date <= Date.current }
+        .sum(&:amount_cents)
+    end
+  )
+
+  scope :select_current_cash_on_hand, -> { select_current_cash_on_hand_cents }
+
+  def current_cash_on_hand
+    @current_cash_on_hand ||= Money.new(current_cash_on_hand_cents)
+  end
 end
