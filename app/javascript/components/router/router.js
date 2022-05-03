@@ -16,7 +16,7 @@ function computeMatch(routes, location) {
     let matching = true;
     for (const [routeSegment, locationSegment] of segmentPairs) {
       if (_.startsWith(routeSegment, ':')) {
-        params[routeSegment.slice(1)] = locationSegment‚
+        params[routeSegment.slice(1)] = locationSegment;
       } else if (routeSegment !== locationSegment) {
         matching = false;
         break;

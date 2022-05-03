@@ -6,4 +6,7 @@ class Entry < ApplicationRecord
   monetize :amount_cents
 
   validates :date, :amount, presence: true
+
+  scope :with_contributions, -> { where id: Contribution.select(:entry_id) }
+  scope :with_disbursements, -> {where id: Disbursement.select(:entry_id) }
 end

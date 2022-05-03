@@ -23,7 +23,7 @@ export default function Warchest() {
               to: CampaignsIndex
             },
             {
-              path: "campaigns/:id",‚
+              path: "campaigns/:id",
               to: CampaignsShow
             },
             {
