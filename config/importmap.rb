@@ -3,6 +3,7 @@
 pin "application", preload: true
 pin "h", preload: true
 pin "api"
+pin_all_from "app/javascript/components", under: "components"
 
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "@hotwired/stimulus", to: "stimulus.min.js", preload: true

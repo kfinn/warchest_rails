@@ -1,4 +1,4 @@
-class Transaction < ApplicationRecord
+class Entry < ApplicationRecord
   belongs_to :budget
   has_one :contribution
   has_one :disbursement

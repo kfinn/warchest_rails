@@ -31,27 +31,27 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_02_214803) do
   end
 
   create_table "contributions", force: :cascade do |t|
-    t.bigint "transaction_id", null: false
+    t.bigint "entry_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["transaction_id"], name: "index_contributions_on_transaction_id"
+    t.index ["entry_id"], name: "index_contributions_on_entry_id"
   end
 
   create_table "disbursements", force: :cascade do |t|
-    t.bigint "transaction_id", null: false
+    t.bigint "entry_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["transaction_id"], name: "index_disbursements_on_transaction_id"
+    t.index ["entry_id"], name: "index_disbursements_on_entry_id"
   end
 
-  create_table "transactions", force: :cascade do |t|
+  create_table "entries", force: :cascade do |t|
     t.date "date", null: false
     t.integer "amount_cents", default: 0, null: false
     t.string "amount_currency", default: "USD", null: false
     t.bigint "budget_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["budget_id"], name: "index_transactions_on_budget_id"
+    t.index ["budget_id"], name: "index_entries_on_budget_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -62,7 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_02_214803) do
 
   add_foreign_key "budgets", "campaigns"
   add_foreign_key "campaigns", "users", column: "created_by_id"
-  add_foreign_key "contributions", "transactions"
-  add_foreign_key "disbursements", "transactions"
-  add_foreign_key "transactions", "budgets"
+  add_foreign_key "contributions", "entries"
+  add_foreign_key "disbursements", "entries"
+  add_foreign_key "entries", "budgets"
 end

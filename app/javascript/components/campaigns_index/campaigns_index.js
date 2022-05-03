@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import api from 'api';
 import _ from 'lodash';
+import Link from '../router/link';
 
 export default function CampaignsIndex() {
   const { data: { data: campaigns } } = useQuery(
@@ -16,7 +17,13 @@ export default function CampaignsIndex() {
     ${
       _.map(
         campaigns,
-        (campaign) => h`<div key=${campaign.id}>${campaign.name}</div>`
+        (campaign) => h`
+          <div key=${campaign.id}>
+            <${Link} to=${`campaigns/${campaign.id}`}>
+              ${campaign.name}
+            <//>
+          </div>
+        `
       )
     }
   `;
