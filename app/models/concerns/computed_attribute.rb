@@ -2,12 +2,12 @@ module ComputedAttribute
   extend ActiveSupport::Concern
 
   included do
-    scope :selecting_table_columns, -> { select *column_names }
+    scope :select_table_columns, -> { select *column_names }
   end
 
   class_methods do
     def computed_attribute(name, sql_implementation, ruby_implementation)
-      scope "selecting_#{name}", -> do
+      scope "select_#{name}", -> do
         select("(#{sql_implementation.to_sql}) AS #{name}".squish)
       end
 

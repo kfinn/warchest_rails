@@ -15,20 +15,10 @@ class Budget < ApplicationRecord
     proc { contributions.sum(&:amount_cents) }
   )
 
-  computed_attribute(
-    :total_contributions_currency,
-    Entry
-      .where('"entries"."budget_id" = "budgets"."id"')
-      .with_contributions
-      .limit(1)
-      .select('"entries"."amount_currency"'),
-    proc { contributions.first.amount_currency }
-  )
-
-  scope :selecting_total_contributions, -> { selecting_total_contributions_cents.selecting_total_contributions_currency }
+  scope :select_total_contributions, -> { select_total_contributions_cents }
 
   def total_contributions
-    @total_contributions ||= Money.new(total_contributions_cents, total_contributions_currency)
+    @total_contributions ||= Money.new(total_contributions_cents)
   end
 
   computed_attribute(
@@ -40,20 +30,10 @@ class Budget < ApplicationRecord
     proc { disbursements.sum(&:amount_cents) }
   )
 
-  computed_attribute(
-    :total_disbursements_currency,
-    Entry
-      .where('"entries"."budget_id" = "budgets"."id"')
-      .with_disbursements
-      .limit(1)
-      .select('"entries"."amount_currency"'),
-    proc { disbursements.first.amount_currency }
-  )
-
-  scope :selecting_total_disbursements, -> { selecting_total_disbursements_cents.selecting_total_disbursements_currency }
+  scope :select_total_disbursements, -> { select_total_disbursements_cents }
 
   def total_disbursements
-    @total_disbursements ||= Money.new(total_disbursements_cents, total_disbursements_currency)
+    @total_disbursements ||= Money.new(total_disbursements_cents)
   end
 
   computed_attribute(
@@ -64,18 +44,9 @@ class Budget < ApplicationRecord
     proc { entries.sum(&:amount_cents) }
   )
 
-  computed_attribute(
-    :total_cash_on_hand_currency,
-    Entry
-      .where('"entries"."budget_id" = "budgets"."id"')
-      .limit(1)
-      .select('"entries"."amount_currency"'),
-    proc { entries.first.amount_currency }
-  )
-
-  scope :selecting_total_cash_on_hand, -> { selecting_total_cash_on_hand_cents.selecting_total_cash_on_hand_currency }
+  scope :select_total_cash_on_hand, -> { select_total_cash_on_hand_cents }
 
   def total_cash_on_hand
-    @total_cash_on_hand ||= Money.new(total_cash_on_hand_cents, total_cash_on_hand_currency)
+    @total_cash_on_hand ||= Money.new(total_cash_on_hand_cents)
   end
 end
